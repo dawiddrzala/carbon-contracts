@@ -28,6 +28,7 @@ interface EnvOptions {
     TENDERLY_PROJECT?: string;
     TENDERLY_TEST_PROJECT?: string;
     TENDERLY_USERNAME?: string;
+    FANTOM_PROVIDER_URL?: string;
 }
 
 const {
@@ -40,7 +41,8 @@ const {
     TENDERLY_FORK_ID = '',
     TENDERLY_PROJECT = '',
     TENDERLY_TEST_PROJECT = '',
-    TENDERLY_USERNAME = ''
+    TENDERLY_USERNAME = '',
+    FANTOM_PROVIDER_URL = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
 const mochaOptions = (): MochaOptions => {
@@ -90,7 +92,14 @@ const config: HardhatUserConfig = {
             saveDeployments: true,
             live: true,
             gas: 6000000
-        }
+        },
+        [DeploymentNetwork.Fantom]: {
+            chainId: 250,
+            url: FANTOM_PROVIDER_URL,
+            gasPrice,
+            saveDeployments: true,
+            live: true
+        },
     },
 
     paths: {
@@ -137,7 +146,8 @@ const config: HardhatUserConfig = {
     external: {
         deployments: {
             [DeploymentNetwork.Mainnet]: [`deployments/${DeploymentNetwork.Mainnet}`],
-            [DeploymentNetwork.Tenderly]: [`deployments/${DeploymentNetwork.Tenderly}`]
+            [DeploymentNetwork.Tenderly]: [`deployments/${DeploymentNetwork.Tenderly}`],
+            [DeploymentNetwork.Fantom]: [`deployments/${DeploymentNetwork.Fantom}`]
         }
     },
 
