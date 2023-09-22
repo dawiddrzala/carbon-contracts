@@ -401,10 +401,14 @@ contract TradingTest is TestFixture {
         TradeAction[] memory tradeActions = testCase.tradeActions;
 
         // trade
+        uint256 sourceTankBalanceBefore = tokens[0].balanceOf(tank);
+        uint256 targetTankBalanceBefore = tokens[1].balanceOf(tank);
         trade(tokens[0], tokens[1], byTargetAmount, tradeActions, sourceAmount, -1, false);
+        uint256 sourceTankBalanceAfter = tokens[0].balanceOf(tank);
+        uint256 targetTankBalanceAfter = tokens[1].balanceOf(tank);
 
-        uint256 sourceTokenFees = carbonController.accumulatedFees(tokens[0]);
-        uint256 targetTokenFees = carbonController.accumulatedFees(tokens[1]);
+        uint256 sourceTokenFees = sourceTankBalanceAfter - sourceTankBalanceBefore;
+        uint256 targetTokenFees = targetTankBalanceAfter - targetTankBalanceBefore;
         uint256 tradingFeeAmount = getTradingFeeAmount(byTargetAmount, sourceAmount, targetAmount);
 
         if (byTargetAmount) {
@@ -463,10 +467,15 @@ contract TradingTest is TestFixture {
         vm.startPrank(user1);
 
         // trade
+        uint256 sourceTankBalanceBefore = tokens[0].balanceOf(tank);
+        uint256 targetTankBalanceBefore = tokens[1].balanceOf(tank);
         trade(tokens[0], tokens[1], byTargetAmount, tradeActions, sourceAmount, -1, false);
+        uint256 sourceTankBalanceAfter = tokens[0].balanceOf(tank);
+        uint256 targetTankBalanceAfter = tokens[1].balanceOf(tank);
 
-        uint256 sourceTokenFees = carbonController.accumulatedFees(tokens[0]);
-        uint256 targetTokenFees = carbonController.accumulatedFees(tokens[1]);
+
+        uint256 sourceTokenFees = sourceTankBalanceAfter - sourceTankBalanceBefore;
+        uint256 targetTokenFees = targetTankBalanceAfter - targetTankBalanceBefore;
         uint256 tradingFeeAmount = getTradingFeeAmount(pair, byTargetAmount, sourceAmount, targetAmount);
 
         if (byTargetAmount) {
@@ -510,12 +519,16 @@ contract TradingTest is TestFixture {
         TradeAction[] memory tradeActions = testCase.tradeActions;
 
         // expect to emit event with correct args
+        uint256 sourceTankBalanceBefore = tokens[0].balanceOf(tank);
+        uint256 targetTankBalanceBefore = tokens[1].balanceOf(tank);
         vm.expectEmit();
         emit TokensTraded(user1, tokens[0], tokens[1], sourceAmount, targetAmount, uint128(0), byTargetAmount);
         trade(tokens[0], tokens[1], byTargetAmount, tradeActions, sourceAmount, -1, false);
+        uint256 sourceTankBalanceAfter = tokens[0].balanceOf(tank);
+        uint256 targetTankBalanceAfter = tokens[1].balanceOf(tank);
 
-        uint256 sourceTokenFees = carbonController.accumulatedFees(tokens[0]);
-        uint256 targetTokenFees = carbonController.accumulatedFees(tokens[1]);
+        uint256 sourceTokenFees = sourceTankBalanceAfter - sourceTankBalanceBefore;
+        uint256 targetTokenFees = targetTankBalanceAfter - targetTankBalanceBefore;
 
         assertEq(sourceTokenFees, 0);
         assertEq(targetTokenFees, 0);

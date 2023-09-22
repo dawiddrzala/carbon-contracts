@@ -169,14 +169,14 @@ abstract contract Strategies is Initializable {
     // the global trading fee (in units of PPM)
     uint32 internal _tradingFeePPM;
 
+    // tank for trading fees
+    address payable internal _tank;
+
     // mapping between a strategy to its packed orders
     mapping(uint256 => uint256[3]) private _packedOrdersByStrategyId;
 
     // mapping between a pair id to its strategies ids
     mapping(uint128 => EnumerableSetUpgradeable.UintSet) private _strategyIdsByPairIdStorage;
-
-    // accumulated fees per token
-    mapping(Token => uint256) internal _accumulatedFees;
 
     // mapping between a pair id to its custom trading fee (in units of PPM)
     mapping(uint128 pairId => uint32 fee) internal _customTradingFeePPM;
@@ -193,6 +193,11 @@ abstract contract Strategies is Initializable {
      * @dev triggered when the custom trading fee for a given pair is updated
      */
     event PairTradingFeePPMUpdated(Token indexed token0, Token indexed token1, uint32 prevFeePPM, uint32 newFeePPM);
+
+    /**
+     * @dev triggered when the tank address is updated
+     */
+    event TankSet(address prevTank, address newTank);
 
     /**
      * @dev triggered when a strategy is created
@@ -242,11 +247,6 @@ abstract contract Strategies is Initializable {
         uint128 tradingFeeAmount,
         bool byTargetAmount
     );
-
-    /**
-     * @dev triggered when fees are withdrawn
-     */
-    event FeesWithdrawn(Token indexed token, address indexed recipient, uint256 indexed amount, address sender);
 
     // solhint-disable func-name-mixedcase
     /**
@@ -486,7 +486,7 @@ abstract contract Strategies is Initializable {
             if (params.sourceAmount > params.constraint) {
                 revert GreaterThanMaxInput();
             }
-            _accumulatedFees[params.tokens.source] += tradingFeeAmount;
+            _withdrawFunds(params.tokens.source, _tank, tradingFeeAmount);
         } else {
             uint128 amountExcludingFee = _subtractFee(params.targetAmount, params.pair.id);
             tradingFeeAmount = params.targetAmount - amountExcludingFee;
@@ -494,7 +494,7 @@ abstract contract Strategies is Initializable {
             if (params.targetAmount < params.constraint) {
                 revert LowerThanMinReturn();
             }
-            _accumulatedFees[params.tokens.target] += tradingFeeAmount;
+            _withdrawFunds(params.tokens.target, _tank, tradingFeeAmount);
         }
 
         // transfer funds
@@ -723,6 +723,20 @@ abstract contract Strategies is Initializable {
     }
 
     /**
+     * @dev sets the tank address
+     */
+    function _setTank(address payable newTank) internal {
+        address prevTank = _tank;
+        if (prevTank == newTank) {
+            return;
+        }
+
+        _tank = newTank;
+
+        emit TankSet({ prevTank: prevTank, newTank: newTank });
+    }
+
+    /**
      * returns true if the provided orders are equal, false otherwise
      */
     function _equalStrategyOrders(Order[2] memory orders0, Order[2] memory orders1) internal pure returns (bool) {
@@ -931,21 +945,6 @@ abstract contract Strategies is Initializable {
      */
     function _pairIdByStrategyId(uint256 strategyId) internal pure returns (uint128) {
         return uint128(strategyId >> 128);
-    }
-
-    function _withdrawFees(address sender, uint256 amount, Token token, address recipient) internal returns (uint256) {
-        uint256 accumulatedAmount = _accumulatedFees[token];
-        if (accumulatedAmount == 0) {
-            return 0;
-        }
-        if (amount > accumulatedAmount) {
-            amount = accumulatedAmount;
-        }
-
-        _accumulatedFees[token] = accumulatedAmount - amount;
-        _withdrawFunds(token, payable(recipient), amount);
-        emit FeesWithdrawn(token, recipient, amount, sender);
-        return amount;
     }
 
     /**

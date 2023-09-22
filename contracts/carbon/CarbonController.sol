@@ -48,10 +48,11 @@ contract CarbonController is
     /**
      * @dev used to set immutable state variables and initialize the implementation
      */
-    constructor(IVoucher initVoucher, address proxy) OnlyProxyDelegate(proxy) {
+    constructor(IVoucher initVoucher, address payable initTank, address proxy) OnlyProxyDelegate(proxy) {
         _validAddress(address(initVoucher));
 
         _voucher = initVoucher;
+        _tank = initTank;
         initialize();
     }
 
@@ -126,6 +127,13 @@ contract CarbonController is
     /**
      * @inheritdoc ICarbonController
      */
+    function tank() external view returns (address) {
+        return _tank;
+    }
+
+    /**
+     * @inheritdoc ICarbonController
+     */
     function pairTradingFeePPM(Token token0, Token token1) external view returns (uint32) {
         Pair memory _pair = _pair(token0, token1);
         return _getPairTradingFeePPM(_pair.id);
@@ -156,6 +164,17 @@ contract CarbonController is
     ) external onlyAdmin validFee(newPairTradingFeePPM) {
         Pair memory _pair = _pair(token0, token1);
         _setPairTradingFeePPM(_pair, newPairTradingFeePPM);
+    }
+
+    /**
+     * @dev sets the tank address
+     *
+     * requirements:
+     *
+     * - the caller must be the admin of the contract
+     */
+    function setTank(address payable newTank) external onlyAdmin validAddress(newTank) {
+        _setTank(newTank);
     }
 
     /**
@@ -382,33 +401,6 @@ contract CarbonController is
         TradeTokens memory tokens = TradeTokens({ source: sourceToken, target: targetToken });
         SourceAndTargetAmounts memory amounts = _tradeSourceAndTargetAmounts(tokens, tradeActions, strategyPair, false);
         return amounts.targetAmount;
-    }
-
-    /**
-     * @inheritdoc ICarbonController
-     */
-    function accumulatedFees(Token token) external view validAddress(Token.unwrap(token)) returns (uint256) {
-        return _accumulatedFees[token];
-    }
-
-    /**
-     * @inheritdoc ICarbonController
-     */
-    function withdrawFees(
-        Token token,
-        uint256 amount,
-        address recipient
-    )
-        external
-        whenNotPaused
-        onlyRoleMember(ROLE_FEES_MANAGER)
-        validAddress(recipient)
-        validAddress(Token.unwrap(token))
-        greaterThanZero(amount)
-        nonReentrant
-        returns (uint256)
-    {
-        return _withdrawFees(msg.sender, amount, token, recipient);
     }
 
     /**

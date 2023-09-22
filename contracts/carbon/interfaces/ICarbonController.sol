@@ -21,6 +21,11 @@ interface ICarbonController is IUpgradeable {
     function tradingFeePPM() external view returns (uint32);
 
     /**
+     * @dev returns the tank that collects trading fee
+     */
+    function tank() external view returns (address);
+
+    /**
      * @dev returns the trading fee for a given pair (in units of PPM)
      */
     function pairTradingFeePPM(Token token0, Token token1) external view returns (uint32);
@@ -165,18 +170,4 @@ interface ICarbonController is IUpgradeable {
         Token targetToken,
         TradeAction[] calldata tradeActions
     ) external view returns (uint128);
-
-    /**
-     * @dev returns the amount of fees accumulated for the specified token
-     */
-    function accumulatedFees(Token token) external view returns (uint256);
-
-    /**
-     * @dev transfers the accumulated fees to the specified recipient
-     *
-     * notes:
-     * `amount` is capped to the available amount
-     * returns the amount withdrawn
-     */
-    function withdrawFees(Token token, uint256 amount, address recipient) external returns (uint256);
 }

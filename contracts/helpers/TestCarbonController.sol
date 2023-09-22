@@ -6,15 +6,11 @@ import { IVoucher } from "../voucher/interfaces/IVoucher.sol";
 import { Token } from "../token/Token.sol";
 
 contract TestCarbonController is CarbonController {
-    constructor(IVoucher initVoucher, address proxy) CarbonController(initVoucher, proxy) {}
-
-    function testSetAccumulatedFees(Token token, uint256 amount) external {
-        _accumulatedFees[token] = amount;
-    }
-
-    function testAccumulatedFees(Token token) external view returns (uint256) {
-        return _accumulatedFees[token];
-    }
+    constructor(
+        IVoucher initVoucher,
+        address payable initTank,
+        address proxy
+    ) CarbonController(initVoucher, initTank, proxy) {}
 
     function version() public pure virtual override returns (uint16) {
         return 2;

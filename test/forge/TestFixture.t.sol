@@ -46,6 +46,7 @@ contract TestFixture is Test {
     address payable internal user1;
     address payable internal user2;
     address payable internal emergencyStopper;
+    address payable internal tank;
 
     address internal constant NATIVE_TOKEN_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
     uint256 internal constant MAX_SOURCE_AMOUNT = 100_000_000 ether;
@@ -53,11 +54,12 @@ contract TestFixture is Test {
     function systemFixture() internal {
         utils = new Utilities();
         // create 4 users
-        address payable[] memory users = utils.createUsers(4);
+        address payable[] memory users = utils.createUsers(5);
         admin = users[0];
         user1 = users[1];
         user2 = users[2];
         emergencyStopper = users[3];
+        tank = users[4];
 
         // deploy contracts from admin
         vm.startPrank(admin);
@@ -93,7 +95,7 @@ contract TestFixture is Test {
         voucher = deployVoucher();
 
         // Deploy Carbon Controller
-        carbonController = deployCarbonController(voucher);
+        carbonController = deployCarbonController(voucher, tank);
 
         // setup contracts from admin
         vm.startPrank(admin);
@@ -145,11 +147,11 @@ contract TestFixture is Test {
     /**
      * @dev deploys a new instance of the carbon controller
      */
-    function deployCarbonController(TestVoucher _voucher) internal returns (TestCarbonController controller) {
+    function deployCarbonController(TestVoucher _voucher, address payable tank) internal returns (TestCarbonController controller) {
         // deploy contracts from admin
         vm.startPrank(admin);
         // Deploy Carbon Controller
-        TestCarbonController newCarbonController = new TestCarbonController(IVoucher(address(_voucher)), address(0));
+        TestCarbonController newCarbonController = new TestCarbonController(IVoucher(address(_voucher)), tank, address(0));
         bytes memory carbonInitData = abi.encodeWithSelector(carbonController.initialize.selector);
         // Deploy Carbon proxy
         address carbonControllerProxy = address(

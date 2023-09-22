@@ -126,16 +126,6 @@ contract CarbonControllerTest is TestFixture {
     }
 
     /**
-     * @dev other
-     */
-
-    /// @dev test should revert when querying accumulated fees with an invalid address
-    function testShouldRevertWhenQueryingAccumulatedFeesWithAnInvalidAddress() public {
-        vm.expectRevert(InvalidAddress.selector);
-        carbonController.accumulatedFees(Token.wrap(address(0)));
-    }
-
-    /**
      * @dev unknown delegator
      */
 
