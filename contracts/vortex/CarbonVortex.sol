@@ -99,8 +99,13 @@ contract CarbonVortex is ICarbonVortex, Upgradeable, ReentrancyGuardUpgradeable,
      * @inheritdoc ICarbonVortex
      */
     function setTank(address newTank) external onlyOwner {
+        address prevTank = _tank;
+        if (prevTank == newTank) {
+            return;
+        }
+
         _tank = newTank;
-        emit TankSet(newTank);
+        emit TankSet({ prevTank: prevTank, newTank: newTank });
     }
 
     /**

@@ -12,7 +12,10 @@ interface ICarbonVortex is IUpgradeable {
     error InvalidToken();
     error InvalidTokenLength();
 
-    event TankSet(address indexed newTank);
+    /**
+     * @dev triggered when the tank address is updated
+     */
+    event TankSet(address prevTank, address newTank);
 
     /**
      * @dev returns the total available fees for the given token
