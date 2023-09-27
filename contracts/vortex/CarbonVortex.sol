@@ -24,8 +24,6 @@ contract CarbonVortex is ICarbonVortex, Upgradeable, ReentrancyGuardUpgradeable,
 
     address private _tank;
 
-    uint256 private _totalBurned;
-
     // upgrade forward-compatibility storage gap
     uint256[MAX_GAP - 2] private __gap;
 
@@ -33,14 +31,10 @@ contract CarbonVortex is ICarbonVortex, Upgradeable, ReentrancyGuardUpgradeable,
      * @dev used to set immutable state variables and initialize the implementation
      */
     constructor(
-        ICarbonController carbonController,
-        address initTank,
-        address team
-    ) validAddress(address(carbonController)) validAddress(initTank) validAddress(team) {
+        ICarbonController carbonController
+    ) validAddress(address(carbonController)) {
         _carbonController = carbonController;
-        _tank = initTank;
         initialize();
-        _transferOwnership(team);
     }
 
     /**
@@ -98,7 +92,7 @@ contract CarbonVortex is ICarbonVortex, Upgradeable, ReentrancyGuardUpgradeable,
     /**
      * @inheritdoc ICarbonVortex
      */
-    function setTank(address newTank) external onlyOwner {
+    function setTank(address newTank) external onlyOwner validAddress(newTank) {
         address prevTank = _tank;
         if (prevTank == newTank) {
             return;
@@ -125,12 +119,12 @@ contract CarbonVortex is ICarbonVortex, Upgradeable, ReentrancyGuardUpgradeable,
             balances[i] = tokens[i].balanceOf(address(this));
         }
 
-        // allocate rewards to caller and burn the rest
+        // allocate rewards to tank
         _allocateRewards(_tank, tokens, balances);
     }
 
     /**
-     * @dev allocates the rewards to caller and burns the rest
+     * @dev allocates the rewards to tank
      */
     function _allocateRewards(address sender, Token[] calldata tokens, uint256[] memory rewardAmounts) private {
         // transfer the rewards to caller
@@ -151,7 +145,7 @@ contract CarbonVortex is ICarbonVortex, Upgradeable, ReentrancyGuardUpgradeable,
         }
     }
 
-    function _validateTokens(Token[] calldata tokens) private view {
+    function _validateTokens(Token[] calldata tokens) private pure {
         uint len = tokens.length;
         if (len == 0) {
             revert InvalidTokenLength();

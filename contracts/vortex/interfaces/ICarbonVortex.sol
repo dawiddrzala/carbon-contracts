@@ -27,6 +27,9 @@ interface ICarbonVortex is IUpgradeable {
      */
     function tank() external view returns (address);
 
+    /**
+     * @dev set the tank address to collect fees
+     */
     function setTank(address newTank) external;
 
     /**
