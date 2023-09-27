@@ -58,10 +58,10 @@ contract CarbonVortexTest is TestFixture {
     }
 
     /**
-     * @dev rewards distribution and bnt burn tests
+     * @dev rewards distribution tests
      */
 
-    /// @dev test should distribute rewards to user and burn bnt with token input being BNT
+    /// @dev test should distribute rewards to tank with token input being BNT
     function testShouldDistributeRewardsToTank() public {
         vm.startPrank(admin);
         uint256 amount = 50 ether;
@@ -73,7 +73,6 @@ contract CarbonVortexTest is TestFixture {
         tokens[0] = bnt;
         uint256[] memory expectedUserRewards = new uint256[](1);
 
-        // we don't convert bnt, so we expect to get 10% of 50 BNT
         expectedUserRewards[0] = amount;
 
         carbonVortex.execute(tokens);
