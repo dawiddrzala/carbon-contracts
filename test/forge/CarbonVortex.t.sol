@@ -26,6 +26,13 @@ contract CarbonVortexTest is TestFixture {
      */
     event FeesWithdrawn(Token indexed token, address indexed recipient, uint256 indexed amount, address sender);
 
+    /**
+     * @dev triggered when the tank address is updated
+     */
+    event TankSet(address prevTank, address newTank);
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
     /// @dev function to set up state before tests
     function setUp() public virtual {
         // Set up tokens and users
@@ -303,5 +310,83 @@ contract CarbonVortexTest is TestFixture {
         Token[] memory tokens = new Token[](0);
         vm.expectRevert(ICarbonVortex.InvalidTokenLength.selector);
         carbonVortex.execute(tokens);
+    }
+
+    /**
+     * @dev setTank function tests
+     */
+
+    /// @dev test should set tank if new tank is not the same as prev tank
+    function testShouldSetTankIfNewTankIsNotTheSame() public {
+        vm.startPrank(admin);
+
+        address proposedNewTank = address(0x01);
+        address prevTank = carbonVortex.tank();
+
+        vm.expectEmit();
+        emit TankSet({ prevTank: prevTank, newTank: proposedNewTank });
+        carbonVortex.setTank(proposedNewTank);
+
+        address newTank = carbonVortex.tank();
+        assertEq(newTank, proposedNewTank);
+
+        vm.stopPrank();
+    }
+
+    /// @dev test should revert if non owner sets tank
+    function testShouldRevertIfNonOwnerSetsTank() public {
+        address proposedNewTank = address(0x01);
+        vm.expectRevert("Ownable: caller is not the owner");
+        carbonVortex.setTank(proposedNewTank);
+    }
+
+    /// @dev test should revert if invalid address is set for tank
+    function testShouldRevertIfInvalidAddressIsSetForTank() public {
+        vm.startPrank(admin);
+
+        vm.expectRevert(InvalidAddress.selector);
+        carbonVortex.setTank(address(0));
+
+        vm.stopPrank();
+    }
+
+    /// @dev test should not change tank address if same address is input
+    function testShouldNotChangeTankAddressIfSameAddressIsInput() public {
+        vm.startPrank(admin);
+
+        address prevTank = carbonVortex.tank();
+        carbonVortex.setTank(tank);
+        address newTank = carbonVortex.tank();
+
+        assertEq(newTank, prevTank);
+
+        vm.stopPrank();
+    }
+
+    /**
+     * @dev tansferOwnership function tests
+     */
+
+    /// @dev test should set tank if new tank is not the same as prev tank
+    function testShouldTransferOwnershipIfCallerIsTheOwner() public {
+        vm.startPrank(admin);
+
+        address prevOwner = carbonVortex.owner();
+        assertEq(prevOwner, admin);
+
+        vm.expectEmit();
+        emit OwnershipTransferred(prevOwner, admin2);
+        carbonVortex.transferOwnership(admin2);
+
+        address newOwner = carbonVortex.tank();
+        assertEq(newOwner, admin2);
+
+        vm.stopPrank();
+    }
+
+    /// @dev test should revert if non owner tries to transfer ownership
+    function testShouldRevertIfNonOwnerTriesToTransferOwnership() public {
+        vm.expectRevert("Ownable: caller is not the owner");
+        carbonVortex.transferOwnership(admin2);
     }
 }
