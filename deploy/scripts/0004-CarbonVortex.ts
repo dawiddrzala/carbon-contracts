@@ -4,13 +4,13 @@ import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 
 const func: DeployFunction = async ({ getNamedAccounts }: HardhatRuntimeEnvironment) => {
-    const { deployer, bnt, bancorNetworkV3 } = await getNamedAccounts();
+    const { deployer, tank } = await getNamedAccounts();
     const carbonController = await DeployedContracts.CarbonController.deployed();
 
     await deployProxy({
         name: InstanceName.CarbonVortex,
         from: deployer,
-        args: [bnt, carbonController.address, bancorNetworkV3]
+        args: [carbonController.address, tank]
     });
 
     const carbonVortex = await DeployedContracts.CarbonVortex.deployed();
@@ -21,6 +21,8 @@ const func: DeployFunction = async ({ getNamedAccounts }: HardhatRuntimeEnvironm
         member: carbonVortex.address,
         from: deployer
     });
+
+    await carbonVortex.setTank(tank);
 
     return true;
 };
