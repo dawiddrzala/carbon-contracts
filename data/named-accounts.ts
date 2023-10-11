@@ -9,6 +9,15 @@ const rinkeby = (address: string) => ({
     [DeploymentNetwork.Rinkeby]: address
 });
 
+const fantom = (address: string) => ({
+    [DeploymentNetwork.Fantom]: address,
+});
+
+const base = (address: string) => ({
+    [DeploymentNetwork.Base]: address,
+});
+
+
 const TestNamedAccounts = {
     ethWhale: {
         ...mainnet('0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf')
@@ -45,22 +54,21 @@ const TokenNamedAccounts = {
     }
 };
 
-const BancorNamedAccounts = {
-    bancorNetworkV3: { ...mainnet('0xeEF417e1D5CC832e619ae18D2F140De2999dD4fB') }
-};
-
 export const NamedAccounts = {
     deployer: {
         ...mainnet('ledger://0x5bEBA4D3533a963Dedb270a95ae5f7752fA0Fe22'),
-        ...rinkeby('ledger://0x0f28D58c00F9373C00811E9576eE803B4eF98abe')
+        ...rinkeby('ledger://0x0f28D58c00F9373C00811E9576eE803B4eF98abe'),
+        // TODO: fill in before deployment
+        ...base(''),
+        ...fantom('')
     },
-    deployerV2: { ...mainnet('0xdfeE8DC240c6CadC2c7f7f9c257c259914dEa84E') },
-    foundationMultisig: { ...mainnet('0xeBeD45Ca22fcF70AdCcAb7618C51A3Dbb06C8d83') },
-    foundationMultisig2: { ...mainnet('0x0c333d48Af19c2b42577f3C8f4779F0347F8C819') },
     daoMultisig: { ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8') },
-    daoPauserMultisig: { ...mainnet('0xc140c1CD2e587fC04DAa780d49b616F768476660') },
+    tank: {
+        // TODO: fill in before deployment
+        ...base(''),
+        ...fantom('')
+    },
 
     ...TokenNamedAccounts,
-    ...TestNamedAccounts,
-    ...BancorNamedAccounts
+    ...TestNamedAccounts
 };

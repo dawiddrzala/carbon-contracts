@@ -25,7 +25,7 @@ contract CarbonVortex is ICarbonVortex, Upgradeable, ReentrancyGuardUpgradeable,
     address private _tank;
 
     // upgrade forward-compatibility storage gap
-    uint256[MAX_GAP - 2] private __gap;
+    uint256[MAX_GAP - 1] private __gap;
 
     /**
      * @dev used to set immutable state variables and initialize the implementation

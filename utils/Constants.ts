@@ -10,7 +10,8 @@ export enum DeploymentNetwork {
     Rinkeby = 'rinkeby',
     Hardhat = 'hardhat',
     Tenderly = 'tenderly',
-    Fantom = 'fantom'
+    Fantom = 'fantom',
+    Base = 'base'
 }
 
 export const MAX_UINT256 = MaxUint256;
