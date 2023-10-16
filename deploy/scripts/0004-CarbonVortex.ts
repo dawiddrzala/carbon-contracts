@@ -1,4 +1,4 @@
-import { DeployedContracts, deployProxy, grantRole, InstanceName, setDeploymentMetadata } from '../../utils/Deploy';
+import { DeployedContracts, deployProxy, execute, grantRole, InstanceName, setDeploymentMetadata } from '../../utils/Deploy';
 import { Roles } from '../../utils/Roles';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
@@ -10,7 +10,7 @@ const func: DeployFunction = async ({ getNamedAccounts }: HardhatRuntimeEnvironm
     await deployProxy({
         name: InstanceName.CarbonVortex,
         from: deployer,
-        args: [carbonController.address, tank]
+        args: [carbonController.address]
     });
 
     const carbonVortex = await DeployedContracts.CarbonVortex.deployed();
@@ -22,7 +22,12 @@ const func: DeployFunction = async ({ getNamedAccounts }: HardhatRuntimeEnvironm
         from: deployer
     });
 
-    await carbonVortex.setTank(tank);
+    await execute({
+        name: InstanceName.CarbonVortex,
+        methodName: 'setTank',
+        args: [tank],
+        from: deployer
+    });
 
     return true;
 };

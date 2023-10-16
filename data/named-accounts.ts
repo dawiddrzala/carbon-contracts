@@ -2,7 +2,6 @@ import { DeploymentNetwork } from '../utils/Constants';
 
 const mainnet = (address: string) => ({
     [DeploymentNetwork.Mainnet]: address,
-    [DeploymentNetwork.Tenderly]: address
 });
 
 const rinkeby = (address: string) => ({
@@ -15,6 +14,7 @@ const fantom = (address: string) => ({
 
 const base = (address: string) => ({
     [DeploymentNetwork.Base]: address,
+    [DeploymentNetwork.Tenderly]: address
 });
 
 
@@ -59,13 +59,16 @@ export const NamedAccounts = {
         ...mainnet('ledger://0x5bEBA4D3533a963Dedb270a95ae5f7752fA0Fe22'),
         ...rinkeby('ledger://0x0f28D58c00F9373C00811E9576eE803B4eF98abe'),
         // TODO: fill in before deployment
-        ...base(''),
+        ...base('0xe0F7921414e79fE4459148d2e38fb68C9186DECC'),
         ...fantom('')
     },
-    daoMultisig: { ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8') },
+    daoMultisig: {
+        ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8'),
+        ...base('0x15ecCFd11566C71E3d305560d1D8b52859160762')
+    },
     tank: {
         // TODO: fill in before deployment
-        ...base(''),
+        ...base('0x15ecCFd11566C71E3d305560d1D8b52859160762'),
         ...fantom('')
     },
 
