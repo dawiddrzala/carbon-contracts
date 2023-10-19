@@ -30,6 +30,7 @@ interface EnvOptions {
     TENDERLY_USERNAME?: string;
     FANTOM_PROVIDER_URL?: string;
     BASE_PROVIDER_URL?: string;
+    CANTO_PROVIDER_URL?: string;
 }
 
 const {
@@ -44,7 +45,8 @@ const {
     TENDERLY_TEST_PROJECT = '',
     TENDERLY_USERNAME = '',
     FANTOM_PROVIDER_URL = '',
-    BASE_PROVIDER_URL = ''
+    BASE_PROVIDER_URL = '',
+    CANTO_PROVIDER_URL = '',
 }: EnvOptions = process.env as any as EnvOptions;
 
 const mochaOptions = (): MochaOptions => {
@@ -105,6 +107,13 @@ const config: HardhatUserConfig = {
         [DeploymentNetwork.Base]: {
             chainId: 8453,
             url: BASE_PROVIDER_URL,
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
+        [DeploymentNetwork.Canto]: {
+            chainId: 7700,
+            url: CANTO_PROVIDER_URL,
             // gasPrice,
             saveDeployments: true,
             live: true
