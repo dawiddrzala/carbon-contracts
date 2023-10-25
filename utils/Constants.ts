@@ -12,7 +12,8 @@ export enum DeploymentNetwork {
     Tenderly = 'tenderly',
     Fantom = 'fantom',
     Base = 'base',
-    Canto = 'canto'
+    Canto = 'canto',
+    Arbitrum = 'arbitrum'
 }
 
 export const MAX_UINT256 = MaxUint256;

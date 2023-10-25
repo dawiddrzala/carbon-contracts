@@ -21,6 +21,10 @@ const canto = (address: string) => ({
     [DeploymentNetwork.Canto]: address,
 });
 
+const arbitrum = (address: string) => ({
+    [DeploymentNetwork.Arbitrum]: address,
+});
+
 const TestNamedAccounts = {
     ethWhale: {
         ...mainnet('0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf')
@@ -64,19 +68,22 @@ export const NamedAccounts = {
         // TODO: fill in before deployment
         ...base('0xe0F7921414e79fE4459148d2e38fb68C9186DECC'),
         ...fantom('0xc9c8449259566cdC82f396FeF5E6EA4b5015708A'),
-        ...canto('0x9a1f2Ca05af3A76E111558d670fD3d877456e1Ce')
+        ...canto('0x9a1f2Ca05af3A76E111558d670fD3d877456e1Ce'),
+        ...arbitrum('0x1ef4046Ca64BBDC05141322645C671a640432Be0')
     },
     daoMultisig: {
         ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8'),
         ...base('0x15ecCFd11566C71E3d305560d1D8b52859160762'),
         ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7'),
         ...fantom('0x0bfaEc79F6CEbd39c582e2605C4D96F0Cb4e7D9A'),
+        ...arbitrum('0xfee0BAC505E48140A206aB396599BBd6102c2e5C')
     },
     tank: {
         // TODO: fill in before deployment
         ...base('0x15ecCFd11566C71E3d305560d1D8b52859160762'),
         ...fantom('0x0bfaEc79F6CEbd39c582e2605C4D96F0Cb4e7D9A'),
-        ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7')
+        ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7'),
+        ...arbitrum('0xfee0BAC505E48140A206aB396599BBd6102c2e5C')
     },
 
     ...TokenNamedAccounts,
