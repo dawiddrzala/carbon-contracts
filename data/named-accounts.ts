@@ -63,18 +63,19 @@ export const NamedAccounts = {
         ...rinkeby('ledger://0x0f28D58c00F9373C00811E9576eE803B4eF98abe'),
         // TODO: fill in before deployment
         ...base('0xe0F7921414e79fE4459148d2e38fb68C9186DECC'),
-        ...fantom(''),
+        ...fantom('0xc9c8449259566cdC82f396FeF5E6EA4b5015708A'),
         ...canto('0x9a1f2Ca05af3A76E111558d670fD3d877456e1Ce')
     },
     daoMultisig: {
         ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8'),
         ...base('0x15ecCFd11566C71E3d305560d1D8b52859160762'),
-        ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7')
+        ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7'),
+        ...fantom('0x0bfaEc79F6CEbd39c582e2605C4D96F0Cb4e7D9A'),
     },
     tank: {
         // TODO: fill in before deployment
         ...base('0x15ecCFd11566C71E3d305560d1D8b52859160762'),
-        ...fantom(''),
+        ...fantom('0x0bfaEc79F6CEbd39c582e2605C4D96F0Cb4e7D9A'),
         ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7')
     },
 
