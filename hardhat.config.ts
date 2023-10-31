@@ -31,6 +31,9 @@ interface EnvOptions {
     FANTOM_PROVIDER_URL?: string;
     BASE_PROVIDER_URL?: string;
     CANTO_PROVIDER_URL?: string;
+    ARBITRUM_PROVIDER_URL?: string;
+    MANTLE_PROVIDER_URL?: string;
+    PRIVATE_KEY?: string;
 }
 
 const {
@@ -47,6 +50,9 @@ const {
     FANTOM_PROVIDER_URL = '',
     BASE_PROVIDER_URL = '',
     CANTO_PROVIDER_URL = '',
+    ARBITRUM_PROVIDER_URL = '',
+    MANTLE_PROVIDER_URL = '',
+    PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
 const mochaOptions = (): MochaOptions => {
@@ -100,6 +106,7 @@ const config: HardhatUserConfig = {
         [DeploymentNetwork.Fantom]: {
             chainId: 250,
             url: FANTOM_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
             // gasPrice,
             saveDeployments: true,
             live: true
@@ -114,6 +121,22 @@ const config: HardhatUserConfig = {
         [DeploymentNetwork.Canto]: {
             chainId: 7700,
             url: CANTO_PROVIDER_URL,
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
+        [DeploymentNetwork.Arbitrum]: {
+            chainId: 42161,
+            url: ARBITRUM_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
+        [DeploymentNetwork.Mantle]: {
+            chainId: 5000,
+            url: MANTLE_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
             // gasPrice,
             saveDeployments: true,
             live: true
@@ -166,7 +189,9 @@ const config: HardhatUserConfig = {
             [DeploymentNetwork.Mainnet]: [`deployments/${DeploymentNetwork.Mainnet}`],
             [DeploymentNetwork.Tenderly]: [`deployments/${DeploymentNetwork.Tenderly}`],
             [DeploymentNetwork.Fantom]: [`deployments/${DeploymentNetwork.Fantom}`],
-            [DeploymentNetwork.Base]: [`deployments/${DeploymentNetwork.Base}`]
+            [DeploymentNetwork.Base]: [`deployments/${DeploymentNetwork.Base}`],
+            [DeploymentNetwork.Arbitrum]: [`deployments/${DeploymentNetwork.Arbitrum}`],
+            [DeploymentNetwork.Mantle]: [`deployments/${DeploymentNetwork.Mantle}`]
         }
     },
 
