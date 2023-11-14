@@ -33,6 +33,8 @@ interface EnvOptions {
     CANTO_PROVIDER_URL?: string;
     ARBITRUM_PROVIDER_URL?: string;
     MANTLE_PROVIDER_URL?: string;
+    ZKSYNC_PROVIDER_URL?: string;
+    GNOSIS_PROVIDER_URL?: string;
     PRIVATE_KEY?: string;
 }
 
@@ -52,6 +54,8 @@ const {
     CANTO_PROVIDER_URL = '',
     ARBITRUM_PROVIDER_URL = '',
     MANTLE_PROVIDER_URL = '',
+    ZKSYNC_PROVIDER_URL = '',
+    GNOSIS_PROVIDER_URL = '',
     PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -136,6 +140,22 @@ const config: HardhatUserConfig = {
         [DeploymentNetwork.Mantle]: {
             chainId: 5000,
             url: MANTLE_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
+        [DeploymentNetwork.ZkSync]: {
+            chainId: 324,
+            url: ZKSYNC_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
+        [DeploymentNetwork.Gnosis]: {
+            chainId: 100,
+            url: GNOSIS_PROVIDER_URL,
             accounts: [PRIVATE_KEY],
             // gasPrice,
             saveDeployments: true,

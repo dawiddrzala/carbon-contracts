@@ -29,6 +29,14 @@ const mantle = (address: string) => ({
     [DeploymentNetwork.Mantle]: address,
 });
 
+const zksync = (address: string) => ({
+    [DeploymentNetwork.ZkSync]: address,
+});
+
+const gnosis = (address: string) => ({
+    [DeploymentNetwork.Gnosis]: address,
+});
+
 const TestNamedAccounts = {
     ethWhale: {
         ...mainnet('0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf')
@@ -74,7 +82,9 @@ export const NamedAccounts = {
         ...fantom('0xc9c8449259566cdC82f396FeF5E6EA4b5015708A'),
         ...canto('0x9a1f2Ca05af3A76E111558d670fD3d877456e1Ce'),
         ...arbitrum('0x1ef4046Ca64BBDC05141322645C671a640432Be0'),
-        ...mantle('0x6E0AFB1912d4Cc8edD87E2672bA32952c6BB85C3')
+        ...mantle('0x6E0AFB1912d4Cc8edD87E2672bA32952c6BB85C3'),
+        ...zksync('0xa08230ed7B1f0CdF5507BAd2F31dCce57449bd04'),
+        ...gnosis('0x4b1B2F1438C7beD2D3e5eA1Da5b8d14BE8c06fF2')
     },
     daoMultisig: {
         ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8'),
@@ -82,7 +92,9 @@ export const NamedAccounts = {
         ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7'),
         ...fantom('0x0bfaEc79F6CEbd39c582e2605C4D96F0Cb4e7D9A'),
         ...arbitrum('0xfee0BAC505E48140A206aB396599BBd6102c2e5C'),
-        ...mantle('0xC5B7af905D3ad69EAbD363500E421A568BDBB3A0')
+        ...mantle('0xC5B7af905D3ad69EAbD363500E421A568BDBB3A0'),
+        ...zksync(''),
+        ...gnosis('0x91960b8CD827436946be8150D761a98a865d0336')
     },
     tank: {
         // TODO: fill in before deployment
@@ -90,7 +102,9 @@ export const NamedAccounts = {
         ...fantom('0x0bfaEc79F6CEbd39c582e2605C4D96F0Cb4e7D9A'),
         ...canto('0x45ba3e9DC6F167bb60Ab3FAd4f3e3B653e868DC7'),
         ...arbitrum('0xfee0BAC505E48140A206aB396599BBd6102c2e5C'),
-        ...mantle('0xC5B7af905D3ad69EAbD363500E421A568BDBB3A0')
+        ...mantle('0xC5B7af905D3ad69EAbD363500E421A568BDBB3A0'),
+        ...zksync(''),
+        ...gnosis('0x91960b8CD827436946be8150D761a98a865d0336')
     },
 
     ...TokenNamedAccounts,
