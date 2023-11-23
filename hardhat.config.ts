@@ -35,6 +35,7 @@ interface EnvOptions {
     MANTLE_PROVIDER_URL?: string;
     ZKSYNC_PROVIDER_URL?: string;
     GNOSIS_PROVIDER_URL?: string;
+    BSC_PROVIDER_URL?: string;
     PRIVATE_KEY?: string;
 }
 
@@ -56,6 +57,7 @@ const {
     MANTLE_PROVIDER_URL = '',
     ZKSYNC_PROVIDER_URL = '',
     GNOSIS_PROVIDER_URL = '',
+    BSC_PROVIDER_URL = '',
     PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -161,6 +163,14 @@ const config: HardhatUserConfig = {
             saveDeployments: true,
             live: true
         },
+        [DeploymentNetwork.Bsc]: {
+            chainId: 56,
+            url: BSC_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
     },
 
     paths: {
@@ -211,7 +221,8 @@ const config: HardhatUserConfig = {
             [DeploymentNetwork.Fantom]: [`deployments/${DeploymentNetwork.Fantom}`],
             [DeploymentNetwork.Base]: [`deployments/${DeploymentNetwork.Base}`],
             [DeploymentNetwork.Arbitrum]: [`deployments/${DeploymentNetwork.Arbitrum}`],
-            [DeploymentNetwork.Mantle]: [`deployments/${DeploymentNetwork.Mantle}`]
+            [DeploymentNetwork.Mantle]: [`deployments/${DeploymentNetwork.Mantle}`],
+            [DeploymentNetwork.Bsc]: [`deployments/${DeploymentNetwork.Bsc}`]
         }
     },
 
