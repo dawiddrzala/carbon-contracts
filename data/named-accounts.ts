@@ -41,6 +41,10 @@ const bsc = (address: string) => ({
     [DeploymentNetwork.Bsc]: address,
 });
 
+const baseGoerli = (address: string) => ({
+    [DeploymentNetwork.BaseGoerli]: address,
+});
+
 const TestNamedAccounts = {
     ethWhale: {
         ...mainnet('0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf')
@@ -89,7 +93,8 @@ export const NamedAccounts = {
         ...mantle('0x6E0AFB1912d4Cc8edD87E2672bA32952c6BB85C3'),
         ...zksync('0xa08230ed7B1f0CdF5507BAd2F31dCce57449bd04'),
         ...gnosis('0x4b1B2F1438C7beD2D3e5eA1Da5b8d14BE8c06fF2'),
-        ...bsc('0xdAefD96D9Bf52D03713FE43A738D561DFF5D255f')
+        ...bsc('0xdAefD96D9Bf52D03713FE43A738D561DFF5D255f'),
+        ...baseGoerli('0xcdCb217e9937a4c04C5986Eb56e36b530422f965')
     },
     daoMultisig: {
         ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8'),
@@ -100,7 +105,8 @@ export const NamedAccounts = {
         ...mantle('0xC5B7af905D3ad69EAbD363500E421A568BDBB3A0'),
         ...zksync(''),
         ...gnosis('0x91960b8CD827436946be8150D761a98a865d0336'),
-        ...bsc('0x25d52b429a0AcDDC3A6161D7F66b768fA03237Af')
+        ...bsc('0x25d52b429a0AcDDC3A6161D7F66b768fA03237Af'),
+        ...baseGoerli('0xcdCb217e9937a4c04C5986Eb56e36b530422f965')
     },
     tank: {
         // TODO: fill in before deployment
@@ -111,7 +117,8 @@ export const NamedAccounts = {
         ...mantle('0xC5B7af905D3ad69EAbD363500E421A568BDBB3A0'),
         ...zksync(''),
         ...gnosis('0x91960b8CD827436946be8150D761a98a865d0336'),
-        ...bsc('0x25d52b429a0AcDDC3A6161D7F66b768fA03237Af')
+        ...bsc('0x25d52b429a0AcDDC3A6161D7F66b768fA03237Af'),
+        ...baseGoerli('0xcdCb217e9937a4c04C5986Eb56e36b530422f965')
     },
 
     ...TokenNamedAccounts,

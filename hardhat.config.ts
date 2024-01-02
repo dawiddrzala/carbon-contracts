@@ -36,6 +36,7 @@ interface EnvOptions {
     ZKSYNC_PROVIDER_URL?: string;
     GNOSIS_PROVIDER_URL?: string;
     BSC_PROVIDER_URL?: string;
+    BASE_GOERLI_PROVIDER_URL?: string;
     PRIVATE_KEY?: string;
 }
 
@@ -58,6 +59,7 @@ const {
     ZKSYNC_PROVIDER_URL = '',
     GNOSIS_PROVIDER_URL = '',
     BSC_PROVIDER_URL = '',
+    BASE_GOERLI_PROVIDER_URL = '',
     PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -171,6 +173,14 @@ const config: HardhatUserConfig = {
             saveDeployments: true,
             live: true
         },
+        [DeploymentNetwork.BaseGoerli]: {
+            chainId: 84531,
+            url: BASE_GOERLI_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
     },
 
     paths: {
@@ -222,7 +232,8 @@ const config: HardhatUserConfig = {
             [DeploymentNetwork.Base]: [`deployments/${DeploymentNetwork.Base}`],
             [DeploymentNetwork.Arbitrum]: [`deployments/${DeploymentNetwork.Arbitrum}`],
             [DeploymentNetwork.Mantle]: [`deployments/${DeploymentNetwork.Mantle}`],
-            [DeploymentNetwork.Bsc]: [`deployments/${DeploymentNetwork.Bsc}`]
+            [DeploymentNetwork.Bsc]: [`deployments/${DeploymentNetwork.Bsc}`],
+            [DeploymentNetwork.BaseGoerli]: [`deployments/${DeploymentNetwork.BaseGoerli}`]
         }
     },
 
