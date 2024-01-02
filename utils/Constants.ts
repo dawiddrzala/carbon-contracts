@@ -18,7 +18,8 @@ export enum DeploymentNetwork {
     ZkSync = 'zksync',
     Gnosis = 'gnosis',
     Bsc = 'bsc',
-    BaseGoerli = 'base_goerli'
+    BaseGoerli = 'base_goerli',
+    Scroll = 'scroll'
 }
 
 export const MAX_UINT256 = MaxUint256;
