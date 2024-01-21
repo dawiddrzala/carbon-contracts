@@ -19,7 +19,8 @@ export enum DeploymentNetwork {
     Gnosis = 'gnosis',
     Bsc = 'bsc',
     BaseGoerli = 'base_goerli',
-    Scroll = 'scroll'
+    Scroll = 'scroll',
+    BeraArtio = 'bera_artio'
 }
 
 export const MAX_UINT256 = MaxUint256;

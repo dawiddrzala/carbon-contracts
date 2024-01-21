@@ -38,6 +38,7 @@ interface EnvOptions {
     BSC_PROVIDER_URL?: string;
     BASE_GOERLI_PROVIDER_URL?: string;
     SCROLL_PROVIDER_URL?: string;
+    BERA_ARTIO_PROVIDER_URL?: string;
     PRIVATE_KEY?: string;
 }
 
@@ -62,6 +63,7 @@ const {
     BSC_PROVIDER_URL = '',
     BASE_GOERLI_PROVIDER_URL = '',
     SCROLL_PROVIDER_URL = '',
+    BERA_ARTIO_PROVIDER_URL = '',
     PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -186,6 +188,14 @@ const config: HardhatUserConfig = {
         [DeploymentNetwork.Scroll]: {
             chainId: 534352,
             url: SCROLL_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
+        [DeploymentNetwork.BeraArtio]: {
+            chainId: 80085,
+            url: BERA_ARTIO_PROVIDER_URL,
             accounts: [PRIVATE_KEY],
             // gasPrice,
             saveDeployments: true,
