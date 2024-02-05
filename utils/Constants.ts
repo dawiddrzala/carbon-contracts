@@ -20,7 +20,9 @@ export enum DeploymentNetwork {
     Bsc = 'bsc',
     BaseGoerli = 'base_goerli',
     Scroll = 'scroll',
-    BeraArtio = 'bera_artio'
+    BeraArtio = 'bera_artio',
+    NeonDevnet = 'neon_devnet',
+    NeonMainnet = 'neon_mainnet'
 }
 
 export const MAX_UINT256 = MaxUint256;

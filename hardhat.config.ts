@@ -39,13 +39,15 @@ interface EnvOptions {
     BASE_GOERLI_PROVIDER_URL?: string;
     SCROLL_PROVIDER_URL?: string;
     BERA_ARTIO_PROVIDER_URL?: string;
+    NEON_DEVNET_PROVIDER_URL?: string;
+    NEON_MAINNET_PROVIDER_URL?: string;
     PRIVATE_KEY?: string;
 }
 
 const {
     ETHEREUM_PROVIDER_URL = '',
     ETHEREUM_RINKEBY_PROVIDER_URL = '',
-    ETHERSCAN_API_KEY,
+    ETHERSCAN_API_KEY = '',
     GAS_PRICE: gasPrice = 'auto',
     NIGHTLY: isNightly,
     PROFILE: isProfiling,
@@ -64,6 +66,8 @@ const {
     BASE_GOERLI_PROVIDER_URL = '',
     SCROLL_PROVIDER_URL = '',
     BERA_ARTIO_PROVIDER_URL = '',
+    NEON_DEVNET_PROVIDER_URL = '',
+    NEON_MAINNET_PROVIDER_URL = '',
     PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -201,6 +205,22 @@ const config: HardhatUserConfig = {
             saveDeployments: true,
             live: true
         },
+        [DeploymentNetwork.NeonDevnet]: {
+            chainId: 245022926,
+            url: NEON_DEVNET_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
+        [DeploymentNetwork.NeonMainnet]: {
+            chainId: 245022934,
+            url: NEON_MAINNET_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
     },
 
     paths: {
@@ -254,7 +274,10 @@ const config: HardhatUserConfig = {
             [DeploymentNetwork.Mantle]: [`deployments/${DeploymentNetwork.Mantle}`],
             [DeploymentNetwork.Bsc]: [`deployments/${DeploymentNetwork.Bsc}`],
             [DeploymentNetwork.BaseGoerli]: [`deployments/${DeploymentNetwork.BaseGoerli}`],
-            [DeploymentNetwork.Scroll]: [`deployments/${DeploymentNetwork.Scroll}`]
+            [DeploymentNetwork.Scroll]: [`deployments/${DeploymentNetwork.Scroll}`],
+            [DeploymentNetwork.BeraArtio]: [`deployments/${DeploymentNetwork.BeraArtio}`],
+            [DeploymentNetwork.NeonDevnet]: [`deployments/${DeploymentNetwork.NeonDevnet}`],
+            [DeploymentNetwork.NeonMainnet]: [`deployments/${DeploymentNetwork.NeonMainnet}`]
         }
     },
 
@@ -264,14 +287,27 @@ const config: HardhatUserConfig = {
         disambiguatePaths: false
     },
 
-    verify: {
-        etherscan: {
-            apiKey: ETHERSCAN_API_KEY
-        }
-    },
+    // verify: {
+    //     etherscan: {
+    //         apiKey: ETHERSCAN_API_KEY
+    //     }
+    // },
 
     etherscan: {
-        apiKey: ETHERSCAN_API_KEY
+        apiKey: {
+            mainnet: ETHERSCAN_API_KEY,
+            [DeploymentNetwork.NeonDevnet]: "test"
+        },
+        customChains: [
+            {
+                network: DeploymentNetwork.NeonDevnet,
+                chainId: 245022926,
+                urls: {
+                    apiURL: "https://devnet-api.neonscan.org/hardhat/verify",
+                    browserURL: "https://devnet.neonscan.org"
+                }
+            }
+        ]
     },
 
     watcher: {
