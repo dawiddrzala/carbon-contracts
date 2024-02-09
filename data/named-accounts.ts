@@ -131,7 +131,7 @@ export const NamedAccounts = {
         ...scroll('0xbC18292DE6Cb6c2a9d334AbFdD3a985E65dF55F2'),
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
-        ...neonMainnet('0x33F47c7683aB9492fA0A61C0d1F10Ca580AF8679')
+        ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5')
     },
     tank: {
         // TODO: fill in before deployment
@@ -147,7 +147,7 @@ export const NamedAccounts = {
         ...scroll('0xbC18292DE6Cb6c2a9d334AbFdD3a985E65dF55F2'),
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
-        ...neonMainnet('0x33F47c7683aB9492fA0A61C0d1F10Ca580AF8679')
+        ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5')
     },
 
     ...TokenNamedAccounts,

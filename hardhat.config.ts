@@ -296,7 +296,8 @@ const config: HardhatUserConfig = {
     etherscan: {
         apiKey: {
             mainnet: ETHERSCAN_API_KEY,
-            [DeploymentNetwork.NeonDevnet]: "test"
+            [DeploymentNetwork.NeonDevnet]: "test",
+            [DeploymentNetwork.NeonMainnet]: "test"
         },
         customChains: [
             {
@@ -305,6 +306,14 @@ const config: HardhatUserConfig = {
                 urls: {
                     apiURL: "https://devnet-api.neonscan.org/hardhat/verify",
                     browserURL: "https://devnet.neonscan.org"
+                }
+            },
+            {
+                network: DeploymentNetwork.NeonMainnet,
+                chainId: 245022934,
+                urls: {
+                    apiURL: "https://api.neonscan.org/hardhat/verify",
+                    browserURL: "https://neonscan.org"
                 }
             }
         ]

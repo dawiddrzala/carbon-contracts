@@ -68,7 +68,7 @@
     "verify:scroll": "HARDHAT_NETWORK=scroll hardhat etherscan-verify --license None --force-license",
     "verify:bera_artio": "HARDHAT_NETWORK=bera_artio hardhat etherscan-verify --license None --force-license",
     "verify:neon_devnet": "HARDHAT_NETWORK=neon_devnet hardhat etherscan-verify --license None --force-license",
-    "verify:neon_devnet": "HARDHAT_NETWORK=neon_mainnet hardhat etherscan-verify --license None --force-license",
+    "verify:neon_mainnet": "HARDHAT_NETWORK=neon_mainnet hardhat etherscan-verify --license None --force-license",
     "setup:fork": "yarn deploy:prepare:fork && ./deployments/run-fork.sh yarn run:fork deployments/setup-fork.ts",
     "setup:fork:fantom": "yarn deploy:prepare:fork:fantom && ./deployments/run-fork.sh yarn run:fork deployments/setup-fork.ts",
     "setup:fork:base": "yarn deploy:prepare:fork:base && ./deployments/run-fork.sh yarn run:fork deployments/setup-fork.ts",
