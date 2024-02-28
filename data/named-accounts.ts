@@ -61,6 +61,10 @@ const neonMainnet = (address: string) => ({
     [DeploymentNetwork.NeonMainnet]: address,
 });
 
+const sankoTestnet = (address: string) => ({
+    [DeploymentNetwork.SankoTestnet]: address,
+});
+
 
 const TestNamedAccounts = {
     ethWhale: {
@@ -115,7 +119,8 @@ export const NamedAccounts = {
         ...scroll('0x6cc70bEE11cCa6A89e595c79A44E165e077Af1b1'),
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
-        ...neonMainnet('0x33F47c7683aB9492fA0A61C0d1F10Ca580AF8679')
+        ...neonMainnet('0x33F47c7683aB9492fA0A61C0d1F10Ca580AF8679'),
+        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224')
     },
     daoMultisig: {
         ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8'),
@@ -131,7 +136,8 @@ export const NamedAccounts = {
         ...scroll('0xbC18292DE6Cb6c2a9d334AbFdD3a985E65dF55F2'),
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
-        ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5')
+        ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5'),
+        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224')
     },
     tank: {
         // TODO: fill in before deployment
@@ -147,7 +153,8 @@ export const NamedAccounts = {
         ...scroll('0xbC18292DE6Cb6c2a9d334AbFdD3a985E65dF55F2'),
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
-        ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5')
+        ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5'),
+        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224')
     },
 
     ...TokenNamedAccounts,

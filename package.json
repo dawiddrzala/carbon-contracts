@@ -53,6 +53,7 @@
     "deploy:bera_artio": "HARDHAT_NETWORK=bera_artio hardhat deploy",
     "deploy:neon_devnet": "HARDHAT_NETWORK=neon_devnet hardhat deploy",
     "deploy:neon_mainnet": "HARDHAT_NETWORK=neon_mainnet hardhat deploy",
+    "deploy:sanko_testnet": "HARDHAT_NETWORK=sanko_testnet hardhat deploy",
     "deploy:fork": "yarn deploy:prepare:fork && HARDHAT_NETWORK=tenderly hardhat deploy",
     "verify:mainnet": "HARDHAT_NETWORK=mainnet hardhat etherscan-verify --license None --force-license",
     "verify:fantom": "HARDHAT_NETWORK=fantom hardhat etherscan-verify --license None --force-license",

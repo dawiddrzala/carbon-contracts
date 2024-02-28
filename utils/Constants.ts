@@ -22,7 +22,8 @@ export enum DeploymentNetwork {
     Scroll = 'scroll',
     BeraArtio = 'bera_artio',
     NeonDevnet = 'neon_devnet',
-    NeonMainnet = 'neon_mainnet'
+    NeonMainnet = 'neon_mainnet',
+    SankoTestnet = 'sanko_testnet'
 }
 
 export const MAX_UINT256 = MaxUint256;

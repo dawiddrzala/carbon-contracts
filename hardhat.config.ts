@@ -41,6 +41,7 @@ interface EnvOptions {
     BERA_ARTIO_PROVIDER_URL?: string;
     NEON_DEVNET_PROVIDER_URL?: string;
     NEON_MAINNET_PROVIDER_URL?: string;
+    SANKO_TESTNET_PROVIDER_URL?: string;
     PRIVATE_KEY?: string;
 }
 
@@ -68,6 +69,7 @@ const {
     BERA_ARTIO_PROVIDER_URL = '',
     NEON_DEVNET_PROVIDER_URL = '',
     NEON_MAINNET_PROVIDER_URL = '',
+    SANKO_TESTNET_PROVIDER_URL = '',
     PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -221,6 +223,14 @@ const config: HardhatUserConfig = {
             saveDeployments: true,
             live: true
         },
+        [DeploymentNetwork.SankoTestnet]: {
+            chainId: 1992,
+            url: SANKO_TESTNET_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            // gasPrice,
+            saveDeployments: true,
+            live: true
+        },
     },
 
     paths: {
@@ -277,7 +287,8 @@ const config: HardhatUserConfig = {
             [DeploymentNetwork.Scroll]: [`deployments/${DeploymentNetwork.Scroll}`],
             [DeploymentNetwork.BeraArtio]: [`deployments/${DeploymentNetwork.BeraArtio}`],
             [DeploymentNetwork.NeonDevnet]: [`deployments/${DeploymentNetwork.NeonDevnet}`],
-            [DeploymentNetwork.NeonMainnet]: [`deployments/${DeploymentNetwork.NeonMainnet}`]
+            [DeploymentNetwork.NeonMainnet]: [`deployments/${DeploymentNetwork.NeonMainnet}`],
+            [DeploymentNetwork.SankoTestnet]: [`deployments/${DeploymentNetwork.SankoTestnet}`]
         }
     },
 
