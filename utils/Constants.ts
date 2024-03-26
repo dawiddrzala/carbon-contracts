@@ -23,7 +23,8 @@ export enum DeploymentNetwork {
     BeraArtio = 'bera_artio',
     NeonDevnet = 'neon_devnet',
     NeonMainnet = 'neon_mainnet',
-    SankoTestnet = 'sanko_testnet'
+    SankoTestnet = 'sanko_testnet',
+    Telos = 'telos'
 }
 
 export const MAX_UINT256 = MaxUint256;

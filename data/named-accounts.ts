@@ -65,6 +65,9 @@ const sankoTestnet = (address: string) => ({
     [DeploymentNetwork.SankoTestnet]: address,
 });
 
+const telos = (address: string) => ({
+    [DeploymentNetwork.Telos]: address,
+});
 
 const TestNamedAccounts = {
     ethWhale: {
@@ -120,7 +123,8 @@ export const NamedAccounts = {
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonMainnet('0x33F47c7683aB9492fA0A61C0d1F10Ca580AF8679'),
-        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224')
+        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
+        ...telos('0xbcBf0AA76639BBc4CfBCB68f706704512c3f6ec0')
     },
     daoMultisig: {
         ...mainnet('0x7e3692a6d8c34a762079fa9057aed87be7e67cb8'),
@@ -137,7 +141,8 @@ export const NamedAccounts = {
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5'),
-        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224')
+        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
+        ...telos('0xAc54c47425ECb34d540B6cC829A645157D0d416A')
     },
     tank: {
         // TODO: fill in before deployment
@@ -154,7 +159,8 @@ export const NamedAccounts = {
         ...beraArtio('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonDevnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
         ...neonMainnet('0x606d92c856fEC5b8DfDD268637BBBBbEB1E40dd5'),
-        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224')
+        ...sankoTestnet('0x6ce3f37806964100B5F0Ce077C93C7cc14193224'),
+        ...telos('0xAc54c47425ECb34d540B6cC829A645157D0d416A')
     },
 
     ...TokenNamedAccounts,

@@ -42,6 +42,7 @@ interface EnvOptions {
     NEON_DEVNET_PROVIDER_URL?: string;
     NEON_MAINNET_PROVIDER_URL?: string;
     SANKO_TESTNET_PROVIDER_URL?: string;
+    TELOS_PROVIDER_URL?: string;
     PRIVATE_KEY?: string;
 }
 
@@ -70,6 +71,7 @@ const {
     NEON_DEVNET_PROVIDER_URL = '',
     NEON_MAINNET_PROVIDER_URL = '',
     SANKO_TESTNET_PROVIDER_URL = '',
+    TELOS_PROVIDER_URL = '',
     PRIVATE_KEY = ''
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -231,6 +233,16 @@ const config: HardhatUserConfig = {
             saveDeployments: true,
             live: true
         },
+        [DeploymentNetwork.Telos]: {
+            chainId: 40,
+            url: TELOS_PROVIDER_URL,
+            accounts: [PRIVATE_KEY],
+            gas: 3000000000,
+            gasPrice: 30000000000000,
+            gasMultiplier: 2,
+            saveDeployments: true,
+            live: true
+        },
     },
 
     paths: {
@@ -288,7 +300,8 @@ const config: HardhatUserConfig = {
             [DeploymentNetwork.BeraArtio]: [`deployments/${DeploymentNetwork.BeraArtio}`],
             [DeploymentNetwork.NeonDevnet]: [`deployments/${DeploymentNetwork.NeonDevnet}`],
             [DeploymentNetwork.NeonMainnet]: [`deployments/${DeploymentNetwork.NeonMainnet}`],
-            [DeploymentNetwork.SankoTestnet]: [`deployments/${DeploymentNetwork.SankoTestnet}`]
+            [DeploymentNetwork.SankoTestnet]: [`deployments/${DeploymentNetwork.SankoTestnet}`],
+            [DeploymentNetwork.Telos]: [`deployments/${DeploymentNetwork.Telos}`]
         }
     },
 
